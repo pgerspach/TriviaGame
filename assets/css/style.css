@@ -1,0 +1,80 @@
+body,
+html{
+    box-sizing:border-box;
+    font-size: 30px;
+    color:black
+}
+
+body{
+    background: lightblue;
+
+}
+
+.gameContainer{
+    display:flex;
+    flex-direction: column;
+    overflow: auto;
+    margin:auto;
+    margin-top:50px;
+    padding: 25px;
+    width:80%;
+    background-color: lightskyblue;
+    justify-content: center;
+}
+
+.gameHead{
+    display: flex;
+    width:auto;
+    margin:auto;
+    font-size: 50px;
+    color: lightcoral;
+    margin-bottom: 30px;
+
+}
+
+.QandA{
+    display: flex;
+    flex-direction: column;
+    width:auto;
+    margin:auto;
+    overflow: auto;
+    justify-content: center;
+}
+
+.timeInd{
+    display: flex;
+    width:auto;
+    margin:auto;
+    justify-content: center;
+    color: black;
+    margin-bottom:20px;
+}
+
+.askQ{
+    display: flex;
+    width:auto;
+    margin:auto;
+    justify-content: center;
+    color: grey;
+    margin-bottom:20px;
+}
+.showA{
+    display: flex;
+    width:auto;
+    margin:auto;
+    justify-content: center;
+    color: white;
+    padding-top:5px;
+    padding-bottom: 5px;
+}
+.showA:hover{
+    cursor: pointer;
+    color:coral;
+}
+.a_List{
+    width:auto;
+    margin:auto;
+    padding:0px;
+    justify-content: center;
+}
+
