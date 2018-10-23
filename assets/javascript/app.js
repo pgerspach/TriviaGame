@@ -19,16 +19,25 @@ $(document).ready(function() {
       qSet.questions.push(this);
     }
   }
-  function makeQuestions1(questionSet) {
-    new Q(
-      "Where do babies come from?",
-      "The Ground",
-      "The Stork",
-      "Yo Mama",
-      "Hopefully not me",
-      3
-    ).addToSet(questionSet);
+  let questionSet = {
+    questions: [],
+    dispQuestion() {
+      if (this.questions.length != 0) {
+        let qChoice = Math.floor(Math.random() * this.questions.length);
+        this.currentQ = this.questions[qChoice];
+        this.currentQspot = qChoice;
 
+        $("#dispQ").html(this.questions[qChoice].quest);
+        $("#aOne").html(this.questions[qChoice].answer1);
+        $("#aTwo").html(this.questions[qChoice].answer2);
+        $("#aThree").html(this.questions[qChoice].answer3);
+        $("#aFour").html(this.questions[qChoice].answer4);
+      }
+    },
+    currentQ: null,
+    currentQspot: null
+  };
+  function makeQuestions1(questionSet) {
     new Q(
       "In what state can you find the Ozark Mountains?",
       "Texas",
@@ -86,61 +95,50 @@ $(document).ready(function() {
       4
     ).addToSet(questionSet);
     new Q(
-        "Where did the pineapple plant originate?",
-        "Hawaii",
-        "Caribbean Islands",
-        "West Africa",
-        "South America",
-        4
-      ).addToSet(questionSet);
-      new Q(
-        "How many U.S. states border the Gulf of Mexico?",
-        "Three",
-        "Four",
-        "Five",
-        "Six",
-        3
-      ).addToSet(questionSet);
-      new Q(
-        "In which country would you would find the Cresta Run?",
-        "Switzerland",
-        "Germany",
-        "Croatia",
-        "Czech Republic",
-        1
-      ).addToSet(questionSet);
-  }
-  let questionSet = {
-    questions: [],
-    dispQuestion() {
-      if (this.questions.length != 0) {
-        let qChoice = Math.floor(Math.random() * this.questions.length);
-        this.currentQ = this.questions[qChoice];
-        this.currentQspot = qChoice;
-
-        $("#dispQ").html(this.questions[qChoice].quest);
-        $("#aOne").html(this.questions[qChoice].answer1);
-        $("#aTwo").html(this.questions[qChoice].answer2);
-        $("#aThree").html(this.questions[qChoice].answer3);
-        $("#aFour").html(this.questions[qChoice].answer4);
-      }
-    },
-    currentQ: null,
-    currentQspot: null
-  };
-  function startGame() {
-    makeQuestions1(questionSet);
-    qTime=set_q_time;
-    aCorrect = 0;
-    aWrong = 0;
-    $(".askQ").attr("style", "display:none");
-    $(".startButton").attr("style", "display:flex");
-
+      "Where did the pineapple plant originate?",
+      "Hawaii",
+      "Caribbean Islands",
+      "West Africa",
+      "South America",
+      4
+    ).addToSet(questionSet);
+    new Q(
+      "How many U.S. states border the Gulf of Mexico?",
+      "Three",
+      "Four",
+      "Five",
+      "Six",
+      3
+    ).addToSet(questionSet);
+    new Q(
+      "In which country would you would find the Cresta Run?",
+      "Switzerland",
+      "Germany",
+      "Croatia",
+      "Czech Republic",
+      1
+    ).addToSet(questionSet);
+    new Q(
+      "In what year was the statue of liberty dedicated to the U.S?",
+      "1886",
+      "1912",
+      "1845",
+      "1801",
+      1
+    ).addToSet(questionSet);
+    new Q(
+      "What year did National Treasure come out?",
+      "2006",
+      "2001",
+      "2004",
+      "2003",
+      3
+    ).addToSet(questionSet);
   }
 
   /////// Important global variables
   let set_q_time = 10;
-  let waitTime = 1;
+  let waitTime = 2;
   let qTime = set_q_time;
 
   let qActive = false;
@@ -150,6 +148,14 @@ $(document).ready(function() {
   startGame();
   /////////
   ///////// Game Functions
+  function startGame() {
+    makeQuestions1(questionSet);
+    qTime = set_q_time;
+    aCorrect = 0;
+    aWrong = 0;
+    $(".askQ").attr("style", "display:none");
+    $(".startButton").attr("style", "display:flex");
+  }
   function decrementQ() {
     qTime--;
     $("#dispTime").html("You have " + qTime + " seconds remaining");
@@ -165,7 +171,7 @@ $(document).ready(function() {
       $(".askQ").attr("style", "display:none");
       intervalId = setInterval(decrementFew, 1000);
     }
-  }///^^^ decrements interval during a question
+  } ///^^^ decrements interval during a question
   function decrementFew() {
     qTime--;
     if (qTime <= 0) {
@@ -179,13 +185,12 @@ $(document).ready(function() {
         $("#dispTime").html("You have " + qTime + " seconds remaining");
 
         questionSet.dispQuestion();
-      }
-      else{
+      } else {
         caseGO();
       }
     }
-  }///^^^ decrements interval in between questions
-  function caseGO(){
+  } ///^^^ decrements interval in between questions
+  function caseGO() {
     clearInterval(intervalId);
 
     $("#dispTime").html("GAME OVER!");
@@ -194,24 +199,22 @@ $(document).ready(function() {
     $(".a_list").attr("style", "display:none");
 
     $(".results").attr("style", "display:flex");
-    $(".correct").html("Correct: "+aCorrect);
-    $(".incorrect").html("Incorrect: "+aWrong);
+    $(".correct").html("Correct: " + aCorrect);
+    $(".incorrect").html("Incorrect: " + aWrong);
 
-
-
-    qActive=false;
+    qActive = false;
 
     startGame();
-
-    }///^^^ if no more questions, end game, display results, give option to restart
+  } ///^^^ if no more questions, end game, display results, give option to restart
   function caseWrong() {
     qTime = waitTime;
     clearInterval(intervalId);
     $("#dispTime").html("WRONG");
     $(".showA").attr("style", "display:none");
-    $(".askQ").attr("style", "display:none");
+    $("#dispQ").html("The right answer was: " + questionSet.currentQ.right);
+
     intervalId = setInterval(decrementFew, 1000);
-  }///^^^executes when guessed answer is not the right answer
+  } ///^^^executes when guessed answer is not the right answer
   function caseRight() {
     qTime = waitTime;
     clearInterval(intervalId);
@@ -219,15 +222,14 @@ $(document).ready(function() {
     $(".showA").attr("style", "display:none");
     $(".askQ").attr("style", "display:none");
     intervalId = setInterval(decrementFew, 1000);
-  }///^^^ executes when the guessed answer is the right answer
-  ///////////  
+  } ///^^^ executes when the guessed answer is the right answer
+  ///////////
   $(".startButton").on("click", function(event) {
     $(".results").attr("style", "display:none");
     $(".startButton").attr("style", "display:none");
 
     $(".a_list").attr("style", "display:block");
     $(".askQ").attr("style", "display:flex");
-
 
     questionSet.dispQuestion();
     $("#dispTime").html("You have " + qTime + " seconds remaining");
@@ -265,6 +267,5 @@ $(document).ready(function() {
         caseWrong();
       }
     }
-  });///^^^executes when an answer is chosen- checks if it's right
-
+  }); ///^^^executes when an answer is chosen- checks if it's right
 });

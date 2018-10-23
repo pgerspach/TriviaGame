@@ -3,10 +3,14 @@ html{
     box-sizing:border-box;
     font-size: 30px;
     color:black;
+
 }
 
 body{
-    background: lightblue;
+    background-image: url("../images/sydney.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+
 
 }
 
@@ -18,7 +22,7 @@ body{
     margin-top:50px;
     padding: 25px;
     width:80%;
-    background-color: lightskyblue;
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
 }
 
