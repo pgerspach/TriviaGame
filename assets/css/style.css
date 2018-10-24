@@ -52,7 +52,7 @@ body{
     flex-direction: column;
 
     justify-content: center;
-    color: black;
+    color: rgb(139, 147, 255);
     margin-bottom:20px;
 }
 .startButton{
@@ -77,7 +77,7 @@ body{
     width:auto;
     margin:auto;
     justify-content: center;
-    color: grey;
+    color: rgb(180, 176, 176);
     margin-bottom:20px;
 }
 .showA{
@@ -89,7 +89,10 @@ body{
     padding-top:5px;
     padding-bottom: 5px;
 }
-.showA:hover{
+#aOne:hover,
+#aTwo:hover,
+#aThree:hover,
+#aFour:hover{
     cursor: pointer;
     color:coral;
 }
@@ -104,5 +107,5 @@ body{
     flex-direction: column;
     overflow: auto;
     margin:auto;
-    color:black;
+    color:white;
 }

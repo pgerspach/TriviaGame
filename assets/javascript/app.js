@@ -127,13 +127,37 @@ $(document).ready(function() {
       1
     ).addToSet(questionSet);
     new Q(
-      "What year did National Treasure come out?",
-      "2006",
-      "2001",
-      "2004",
-      "2003",
-      3
-    ).addToSet(questionSet);
+        "What is the world's largest lake?",
+        "Meditteranean Sea",
+        "Lake Superior",
+        "Caspian Sea",
+        "Black Sea",
+        3
+      ).addToSet(questionSet);
+      new Q(
+        "How many member countries are there in the United Nations?",
+        "182",
+        "193",
+        "202",
+        "214",
+        2
+      ).addToSet(questionSet);
+      new Q(
+        "May Queen, Wisley Crab, Foxwhelps and Lane’s Prince Albert are all types of what?",
+        "Apples",
+        "Naval vessels",
+        "Skateboard tricks",
+        "Diets",
+        1
+      ).addToSet(questionSet);
+      new Q(
+        "Where can you find the Carpathians?",
+        "Sundays at 9pm on E!",
+        "Scandinavia",
+        "Romania",
+        "France",
+        3
+      ).addToSet(questionSet);
   }
 
   /////// Important global variables
