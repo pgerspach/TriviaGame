@@ -158,14 +158,21 @@ $(document).ready(function() {
         "France",
         3
       ).addToSet(questionSet);
+      new Q(
+        "In what body of water is the Mariana Trench located?",
+        "Bay of Bengal",
+        "Siberian Sea",
+        "Gulf of Jakarta",
+        "Philippene Sea",
+        3
+      ).addToSet(questionSet);
   }
 
   /////// Important global variables
-  let set_q_time = 10;
+  let set_q_time = 20;
   let waitTime = 2;
   let qTime = set_q_time;
 
-  let qActive = false;
   let aCorrect = 0;
   let aWrong = 0;
   let intervalId;
@@ -184,7 +191,6 @@ $(document).ready(function() {
     qTime--;
     $("#dispTime").html("You have " + qTime + " seconds remaining");
     if (qTime <= 0) {
-      qActive = false;
       qTime = waitTime;
       aWrong++;
       questionSet.questions.splice(questionSet.currentQspot, 1);
@@ -203,7 +209,6 @@ $(document).ready(function() {
         clearInterval(intervalId);
         $(".showA").attr("style", "display:flex");
         $(".askQ").attr("style", "display:flex");
-        qActive = true;
         qTime = set_q_time;
         intervalId = setInterval(decrementQ, 1000);
         $("#dispTime").html("You have " + qTime + " seconds remaining");
@@ -225,9 +230,6 @@ $(document).ready(function() {
     $(".results").attr("style", "display:flex");
     $(".correct").html("Correct: " + aCorrect);
     $(".incorrect").html("Incorrect: " + aWrong);
-
-    qActive = false;
-
     startGame();
   } ///^^^ if no more questions, end game, display results, give option to restart
   function caseWrong() {
@@ -258,13 +260,11 @@ $(document).ready(function() {
     questionSet.dispQuestion();
     $("#dispTime").html("You have " + qTime + " seconds remaining");
     intervalId = setInterval(decrementQ, 1000);
-    qActive = true;
-
     //Start Timer!
   }); ///^^^executes when the start/restart button is clicked
 
   $(".a_list").on("click", function(event) {
-    if (qActive) {
+     
       var picked = "";
       switch (event.target.id) {
         case "aOne":
@@ -279,17 +279,21 @@ $(document).ready(function() {
         case "aFour":
           picked = $("#aFour").html();
           break;
+        default:
+          picked ="again";
+          break;
       }
+
       if (picked === questionSet.currentQ.right) {
         aCorrect++;
         questionSet.questions.splice(questionSet.currentQspot, 1);
         caseRight();
-      } else {
+      } else if(picked!="again") {
         aWrong++;
         questionSet.questions.splice(questionSet.currentQspot, 1);
 
         caseWrong();
       }
-    }
+    
   }); ///^^^executes when an answer is chosen- checks if it's right
 });
